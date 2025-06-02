@@ -30,6 +30,7 @@ export class HttpService {
       }
 
       const data = await response.json();
+
       return data as T;
     } catch (error) {
       console.error('Erro na requisição:', error);
