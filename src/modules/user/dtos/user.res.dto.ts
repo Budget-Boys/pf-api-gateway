@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
 import { IUser } from '../interfaces/user.interface';
 
-export class CreateUserResDTO implements Omit<IUser, 'password'> {
+export class UserResDTO implements Omit<IUser, 'password'> {
   @ApiProperty({ description: 'ID do usuário', example: 'uuid-1234' })
   @Expose()
   id: string;
