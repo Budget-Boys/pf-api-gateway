@@ -1,0 +1,7 @@
+export enum IncomeCategory{
+    SALARY = 'SALARY',
+    FREELANCE = 'FREELANCE',
+    BUSINESS = 'BUSINESS',
+    PENSION = 'PENSION', 
+    INVESTIMENTS = 'INVESTIMENTS'
+}
