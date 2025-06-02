@@ -13,8 +13,6 @@ export class UserService {
       body: JSON.stringify(user),
     });
 
-    console.log({ response });
-
     if (!response.ok) {
       throw new Error(`Erro ao criar usuário: ${response.statusText}`);
     }
