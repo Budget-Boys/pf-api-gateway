@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { TRequest } from '../interfaces/http.type';
+import { HttpProxyException } from '../exceptions/http-proxy-exception';
 
 @Injectable()
 export class HttpService {
@@ -24,17 +25,24 @@ export class HttpService {
     try {
       const response = await fetch(url, requestOptions);
 
+      const isJson = response.headers.get('content-type')?.includes('application/json');
+
+      const responseBody = isJson ? await response.json() : await response.text();
+
       if (!response.ok) {
-        const errorBody = await response.json();
-        throw new Error(`HTTP error! status: ${response.status}, body: ${errorBody}`);
+        throw new HttpProxyException(
+          response.status,
+          responseBody,
+          `Erro ao chamar ${method} ${url}`,
+        );
       }
 
-      const data = await response.json();
-
-      return data as T;
+      return responseBody as T;
     } catch (error) {
-      console.error('Erro na requisição:', error);
-      throw new Error('Falha na requisição. Tente novamente mais tarde.');
+      if (error instanceof HttpProxyException) {
+        throw error;
+      }
+      throw new InternalServerErrorException('Erro interno ao realizar requisição HTTP.');
     }
   }
 }
