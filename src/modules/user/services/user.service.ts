@@ -2,14 +2,20 @@ import { Injectable } from '@nestjs/common';
 import { IUser } from '../interfaces/user.interface';
 import { TCreateUser } from '../types/user.type';
 import { HttpService } from 'src/shared/http/services/http.service';
-
-const userServiceUrl = process.env.USER_SERVICE_URL || 'http://localhost:9000';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly httpService: HttpService) {}
+  private readonly userServiceUrl;
+
+  constructor(
+    private readonly httpService: HttpService,
+    private readonly configService: ConfigService,
+  ) {
+    this.userServiceUrl = this.configService.get<string>('USER_SERVICE_URL');
+  }
 
   public async proxyCreateUser(user: TCreateUser): Promise<IUser> {
-    return await this.httpService.proxy<IUser>(`${userServiceUrl}/user`, 'POST', {}, user);
+    return await this.httpService.proxy<IUser>(`${this.userServiceUrl}/user`, 'POST', {}, user);
   }
 }
