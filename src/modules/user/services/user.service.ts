@@ -1,23 +1,15 @@
+import { Injectable } from '@nestjs/common';
 import { IUser } from '../interfaces/user.interface';
 import { TCreateUser } from '../types/user.type';
+import { HttpService } from 'src/shared/http/services/http.service';
 
 const userServiceUrl = process.env.USER_SERVICE_URL || 'http://localhost:9000';
 
+@Injectable()
 export class UserService {
+  constructor(private readonly httpService: HttpService) {}
+
   public async proxyCreateUser(user: TCreateUser): Promise<IUser> {
-    const response = await fetch(`${userServiceUrl}/user`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    });
-
-    if (!response.ok) {
-      throw new Error(`Erro ao criar usuário: ${response.statusText}`);
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return await response.json();
+    return await this.httpService.proxy<IUser>(`${userServiceUrl}/user`, 'POST', {}, user);
   }
 }
