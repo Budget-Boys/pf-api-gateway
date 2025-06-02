@@ -1,10 +1,11 @@
 import { IExpense } from './../interfaces/expense.interface';
-import { Post, Get} from "@nestjs/common"
+import { Post, Get, Injectable} from "@nestjs/common"
 import { HttpService } from "src/shared/http/services/http.service"
 import { TCreateExpense } from "../types/expense.types"
 
 const financeServiceURL = process.env.FINANCE_SERVICE_URL || 'http://localhost:9000'
 
+@Injectable()
 export class ExpenseService {
     constructor(private readonly httpService: HttpService){}
     
@@ -20,7 +21,7 @@ export class ExpenseService {
     }
 
     @Get(':id')
-    public async proxyGetExpense(id: string): Promise<IExpense>{
+    public async proxyFindExpenseById(id: string): Promise<IExpense>{
         return await this.httpService.proxy<IExpense>(
         `${financeServiceURL}/expenses/${id}`,
         'GET',
