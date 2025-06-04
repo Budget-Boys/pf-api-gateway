@@ -18,4 +18,9 @@ export class ExpensesController{
     public async createExpense(@Body() payload: CreateExpenseReqDTO): Promise<CreateExpenseReqDTO>{
         return await this.service.proxyCreateExpense(payload)
     }
+
+    @Get()
+      public async getAllExpenses(): Promise<CreateExpenseResDTO[]> {
+        return await this.service.proxyFindAllExpenses();
+      }
 }
