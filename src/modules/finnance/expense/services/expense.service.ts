@@ -3,7 +3,7 @@ import { Post, Get, Injectable} from "@nestjs/common"
 import { HttpService } from "src/shared/http/services/http.service"
 import { TCreateExpense } from "../types/expense.types"
 
-const financeServiceURL = process.env.FINANCE_SERVICE_URL || 'http://localhost:9000'
+const financeServiceURL = process.env.FINANCE_SERVICE_URL || 'http://localhost:9001'
 
 @Injectable()
 export class ExpenseService {
