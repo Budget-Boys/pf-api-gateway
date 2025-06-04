@@ -3,7 +3,7 @@ import { HttpService } from 'src/shared/http/services/http.service';
 import { TCreateIncome } from '../types/income.type';
 import { IIncome } from '../interfaces/income.interfaces';
 
-const financeServiceURL = process.env.FINANCE_SERVICE_URL || 'http://localhost:9001';
+const financeServiceURL = process.env.FINANCE_SERVICE_URL || 'http://localhost:9001/api/finance';
 
 @Injectable()
 export class IncomeService {
