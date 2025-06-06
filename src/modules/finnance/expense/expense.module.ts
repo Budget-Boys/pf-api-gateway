@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ExpenseService } from './services/expense.service';
 import { ExpensesController } from './controllers/expense.controller';
-import { HttpModule } from 'src/shared/http/https.module';
+import { HttpModule } from '../../../shared/http/http.module';
 
 @Module({
   imports: [HttpModule],
