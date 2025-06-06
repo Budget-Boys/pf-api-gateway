@@ -11,6 +11,7 @@ import { ExpenseModule } from './modules/finnance/expense/expense.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath: '.env',
     }),
     UserModule,
     IncomeModule,

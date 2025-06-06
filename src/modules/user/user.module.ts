@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { UserController } from './controllers/user.controller';
 import { UserService } from './services/user.service';
-import { HttpModule } from 'src/shared/http/https.module';
+import { HttpModule } from '../../shared/http/http.module';
 
 @Module({
   imports: [HttpModule],
